@@ -1,0 +1,17 @@
+version: '3.9'
+
+services:
+  proxy:
+    image: nginx:1.24.0-alpine3.17
+    container_name: yotemi_nginx
+    restart: always
+    tty: true
+    volumes:
+      - ./nginx.conf:/etc/nginx/nginx.conf
+      - /etc/letsencrypt/live/yotemi.com/fullchain.pem:/etc/letsencrypt/live/yotemi.com/fullchain.pem
+      - /etc/letsencrypt/live/yotemi.com/privkey.pem:/etc/letsencrypt/live/yotemi.com/privkey.pem
+      - /etc/letsencrypt/live/admin.yotemi.com/fullchain.pem:/etc/letsencrypt/live/admin.yotemi.com/fullchain.pem
+      - /etc/letsencrypt/live/admin.yotemi.com/privkey.pem:/etc/letsencrypt/live/admin.yotemi.com/privkey.pem
+    ports:
+      - "80:80"
+      - "443:443"
